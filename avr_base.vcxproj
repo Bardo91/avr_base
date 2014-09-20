@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\hal\gpio\GPIOPin.h" />
+    <ClInclude Include="src\hal\gpio\GPIOPort.h" />
+    <ClInclude Include="src\hal\gpio\board.h" />
     <ClInclude Include="src\hal\micro\Registers.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

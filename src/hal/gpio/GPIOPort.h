@@ -18,9 +18,9 @@ namespace avr_base{
 					std::uint16_t ddr_,
 					std::uint16_t port_	>
 		class GPIOPort{
-			static  std::uint16_t mPin = pin_;
-			static  std::uint16_t mDdr = ddr_;
-			static  std::uint16_t mPort = port_;
+			static const std::uint8_t* mPin = pin_;
+			static const std::uint8_t* mDdr = ddr_;
+			static const std::uint8_t* mPort = port_;
 		};
 
 #ifdef PORTA

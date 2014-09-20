@@ -10,8 +10,6 @@
 #ifndef _AVR_BASE_HAL_GPIO_BOARD_H_
 #define _AVR_BASE_HAL_GPIO_BOARD_H_
 
-#define __ATMEGA328P__
-
 #include "../micro/Registers.h"
 #include "GPIOPort.h"
 #include "GPIOPin.h"

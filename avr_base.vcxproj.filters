@@ -19,10 +19,22 @@
     <Filter Include="Source Files\hal\micro">
       <UniqueIdentifier>{6b713aae-b0c3-4bad-a02e-a3ec6be6848a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\hal\gpio">
+      <UniqueIdentifier>{b24484e5-7837-470c-889a-4cfc89304687}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\hal\micro\Registers.h">
       <Filter>Source Files\hal\micro</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\gpio\GPIOPort.h">
+      <Filter>Source Files\hal\gpio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\gpio\GPIOPin.h">
+      <Filter>Source Files\hal\gpio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\gpio\board.h">
+      <Filter>Source Files\hal\gpio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
