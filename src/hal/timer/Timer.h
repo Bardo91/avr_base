@@ -21,10 +21,12 @@ namespace avr_base{
 		template<std::uint8_t bitSize_>
 		class TimerRegisterSize{};
 
+		//-------------------------------------------------------------------------------------------------------------
 		class TimerRegisterSize<8>{
 			typedef std::uint8_t RegisterRef;
 		};
 
+		//-------------------------------------------------------------------------------------------------------------
 		class TimerRegisterSize<16>{
 			typedef std::uint16_t RegisterRef;
 		};
@@ -52,6 +54,19 @@ namespace avr_base{
 			static const std::uint8_t* TIMSK	= reinterpret_cast<std::uint8_t*>(TIMSKn_);
 		};
 
+		// Prescaler types
+		enum class ePrescalerType8 {	eNonClock = 0,
+										e1 = 1,
+										e8 = 2,
+										e64 = 3,
+										e256 = 4,
+										e1024 = 5,
+										eExt0Falling = 6,
+										eExt0Rising = 7	};
+
+		//-------------------------------------------------------------------------------------------------------------
+		enum class ePrescalerType16 {	};
+
 		// Define timer traits
 		typedef TimerRegisterTrait<TCCR0A, TCCR0B, 0x00, TCNT0, OCR0A, OCR0B, 0x00, TIFR0, TIMSK0, TimerRegisterSize<8>> Timer0Registers;		//	This timer havent got TCCTnC and ICR registers, are set to 0x00 but, Can it provoke errors? 666 TODO
 		typedef TimerRegisterTrait<TCCR1A, TCCR1B, TCCR1C, TCNT1, OCR1A, OCR1B, ICR1, TIFR1, TIMSK1, TimerRegisterSize<16>> Timer1Registers;
@@ -59,28 +74,63 @@ namespace avr_base{
 
 
 		// Timer class
-		template<class TimerReg_>
+		template<class TimerReg_, class Prescaler_>
 		class Timer{
 		public:
-			void setPrescaler(_prescaler);
+			void setPrescaler(Prescaler_ _prescaler);
 			void setMode(_mode);
 			
 			void setCompA(_value);
 			void setCompB(_value);
 
-			void enableInterrupt(_interrupt);
-			void disableInterrupt(_interrupt);
+			void enableInterruptCompA();
+			void enableInterruptCompB();
+			void enableInterruptOvf();
+			void disableInterruptCompA();
+			void disableInterruptCompB();
+			void disableInterruptOvf();
 
 		};
 
 		// Define timers
-		typedef Timer<Timer0Registers> Timer0;
-		typedef Timer<Timer1Registers> Timer1;
-		typedef Timer<Timer2Registers> Timer2;
+		typedef Timer<Timer0Registers, ePrescalerType8> Timer0;
+		typedef Timer<Timer1Registers, ePrescalerType16> Timer1;
+		typedef Timer<Timer2Registers, ePrescalerType8> Timer2;
 
 		// Inline implementation of timer class:
+		void Timer<class TimerReg_, class Prescaler_>::setPrescaler(Prescaler_ _prescaler){
 
+		}
+		
+		//-------------------------------------------------------------------------------------------------------------
+		void Timer<class TimerReg_, class Prescaler_>::enableInterruptCompA(){
+			// 666 TODO: Permitir interruptiones globales
+		}
 
+		//-------------------------------------------------------------------------------------------------------------
+		void Timer<class TimerReg_, class Prescaler_>::enableInterruptCompA(){
+
+		}
+
+		//-------------------------------------------------------------------------------------------------------------
+		void Timer<class TimerReg_, class Prescaler_>::enableInterruptCompA(){
+
+		}
+
+		//-------------------------------------------------------------------------------------------------------------
+		void Timer<class TimerReg_, class Prescaler_>::disableInterruptCompA(){
+
+		}
+
+		//-------------------------------------------------------------------------------------------------------------
+		void Timer<class TimerReg_, class Prescaler_>::disableInterruptCompB(){
+
+		}
+
+		//-------------------------------------------------------------------------------------------------------------
+		void Timer<class TimerReg_, class Prescaler_>::disableInterruptOvf(){
+
+		}
 	}	//	namespace hal
 }	//	namespace avr_base
 
