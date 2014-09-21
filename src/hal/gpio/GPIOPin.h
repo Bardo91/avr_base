@@ -34,30 +34,30 @@ namespace avr_base{
 		//-------------------------------------------------------------------------------------------------------------------
 		// Inline implementation
 		template<typename port_, std::uint8_t bit_>
-		void GPIOPin::set_input(){ *mPort::mDdr |= mBitMask; };
+		void GPIOPin::set_input(){ *mPort::ddr |= mBitMask; };
 
 		//-------------------------------------------------------------------------------------------------------------------
 		template<typename port_, std::uint8_t bit_>
-		void GPIOPin::set_output(){ *mPort::mDdr &= ~mBitMask; };
+		void GPIOPin::set_output(){ *mPort::ddr &= ~mBitMask; };
 
 		//-------------------------------------------------------------------------------------------------------------------
 		template<typename port_, std::uint8_t bit_>
-		void GPIOPin::set_high(){ *mPort::mPort |= mBitMask; };
+		void GPIOPin::set_high(){ *mPort::port |= mBitMask; };
 
 		//-------------------------------------------------------------------------------------------------------------------
 		template<typename port_, std::uint8_t bit_>
-		void GPIOPin::set_low(){ *mPort::mPort &= ~mBitMask };
+		void GPIOPin::set_low(){ *mPort::port &= ~mBitMask };
 
 		//-------------------------------------------------------------------------------------------------------------------
 		template<typename port_, std::uint8_t bit_>
-		void GPIOPin::toggle(){ *mPort::mPin != mBitMask };
+		void GPIOPin::toggle(){ *mPort::pin != mBitMask };
 
 		//-------------------------------------------------------------------------------------------------------------------
 		template<typename port_, std::uint8_t bit_>
-		bool GPIOPin::isHigh(){ return *mPort::mPin & mBitMask };
+		bool GPIOPin::isHigh(){ return *port::mPin & mBitMask };
 		//-------------------------------------------------------------------------------------------------------------------
 		template<typename port_, std::uint8_t bit_>
-		bool GPIOPin::isLow(){ return !(*mPort::mPin & mBitMask) };
+		bool GPIOPin::isLow(){ return !(*port::mPin & mBitMask) };
 
 	}	//	namespace hal
 }	//	namespace avr_base
