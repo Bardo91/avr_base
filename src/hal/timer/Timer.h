@@ -55,21 +55,20 @@ namespace avr_base{
 		};
 
 		// Prescaler types
-		enum class ePrescalerType8 {	eNonClock = 0,
-										e1 = 1,
-										e8 = 2,
-										e64 = 3,
-										e256 = 4,
-										e1024 = 5,
-										eExt0Falling = 6,
-										eExt0Rising = 7	};
+		enum class ePrescalerType {	eNonClock = 0,
+									e1 = 1,
+									e8 = 2,
+									e64 = 3,
+									e256 = 4,
+									e1024 = 5,
+									eExt0Falling = 6,
+									eExt0Rising = 7	};
 
-		//-------------------------------------------------------------------------------------------------------------
-		enum class ePrescalerType16 {	};
+
 
 		// Timer modes
-		enum class eTimerMode8 { };
-		enum class eTimerMode16 { };
+		enum class eTimerMode8 { eNormal = 0 };
+		enum class eTimerMode16 { eNormal = 0 };
 
 		// Define timer traits
 		typedef TimerRegisterTrait<TCCR0A, TCCR0B, 0x00, TCNT0, OCR0A, OCR0B, 0x00, TIFR0, TIMSK0, TimerRegisterSize<8>> Timer0Registers;		//	This timer havent got TCCTnC and ICR registers, are set to 0x00 but, Can it provoke errors? 666 TODO
@@ -84,8 +83,8 @@ namespace avr_base{
 			void setPrescaler(Prescaler_ _prescaler);
 			void setMode(Mode_ _mode);
 			
-			void setCompA(TimerReg_::ExtendedReg _value);
-			void setCompB(TimerReg_::ExtendedReg _value);
+			void setCompA(std::uint8_t _value);
+			void setCompB(std::uint8_t _value);
 
 			void enableInterruptCompA();
 			void enableInterruptCompB();
@@ -97,32 +96,32 @@ namespace avr_base{
 		};
 
 		// Define timers
-		typedef Timer<Timer0Registers, ePrescalerType8, eTimerMode8> Timer0;
-		typedef Timer<Timer1Registers, ePrescalerType16, eTimerMode16> Timer1;
-		typedef Timer<Timer2Registers, ePrescalerType8, eTimerMode8> Timer2;
+		typedef Timer<Timer0Registers, ePrescalerType, eTimerMode8> Timer0;
+		typedef Timer<Timer1Registers, ePrescalerType, eTimerMode16> Timer1;
+		typedef Timer<Timer2Registers, ePrescalerType, eTimerMode8> Timer2;
 
 		// Inline implementation of timer class:
 		template<class TimerReg_, class Prescaler_, class Mode_>
 		void Timer<class TimerReg_, class Prescaler_>::setPrescaler(Prescaler_ _prescaler){
-
+			*TimerReg_::TCCRB &= static_cast<std::uint8_t>(_prescaler);
 		}
 		
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
 		void Timer<class TimerReg_, class Prescaler_>::setMode(Mode_ _mode){
-
+			// 666 TODO: reserved to do later
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::setCompA(){
-
+		void Timer<class TimerReg_, class Prescaler_>::setCompA(std::uint8_t _value){
+			*TimerReg_::OCRA = _value;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::setCompB(){
-
+		void Timer<class TimerReg_, class Prescaler_>::setCompB(std::uint8_t _value){
+			*TimerReg_::OCRA = _value;
 		}
 		
 		//-------------------------------------------------------------------------------------------------------------
