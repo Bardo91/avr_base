@@ -18,6 +18,9 @@
     <ClInclude Include="src\hal\micro\Registers.h" />
     <ClInclude Include="src\hal\timer\Timer.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AA273108-4235-46A0-9FF7-7FDE9973A8CE}</ProjectGuid>
     <RootNamespace>Project1</RootNamespace>
@@ -52,6 +55,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>__ATMEGA328P__;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
