@@ -98,39 +98,47 @@ namespace avr_base{
 		typedef Timer<Timer2Registers, ePrescalerType8> Timer2;
 
 		// Inline implementation of timer class:
+		template<class TimerReg_, class Prescaler_>
 		void Timer<class TimerReg_, class Prescaler_>::setPrescaler(Prescaler_ _prescaler){
 
 		}
 		
 		//-------------------------------------------------------------------------------------------------------------
+		template<class TimerReg_, class Prescaler_>
 		void Timer<class TimerReg_, class Prescaler_>::enableInterruptCompA(){
-			// 666 TODO: Permitir interruptiones globales
+			*TimerReg_::TIMSK |= (std::uint8_t) 0x02;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
+		template<class TimerReg_, class Prescaler_>
 		void Timer<class TimerReg_, class Prescaler_>::enableInterruptCompA(){
-
+			*TimerReg_::TIMSK |= (std::uint8_t) 0x04;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
+		template<class TimerReg_, class Prescaler_>
 		void Timer<class TimerReg_, class Prescaler_>::enableInterruptCompA(){
-
+			*TimerReg_::TIMSK |= (std::uint8_t) 0x01;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
+		template<class TimerReg_, class Prescaler_>
 		void Timer<class TimerReg_, class Prescaler_>::disableInterruptCompA(){
-
+			*TimerReg_::TIMSK |= !((std::uint8_t) 0x02);
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
+		template<class TimerReg_, class Prescaler_>
 		void Timer<class TimerReg_, class Prescaler_>::disableInterruptCompB(){
-
+			*TimerReg_::TIMSK |= !((std::uint8_t) 0x04);
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
+		template<class TimerReg_, class Prescaler_>
 		void Timer<class TimerReg_, class Prescaler_>::disableInterruptOvf(){
-
+			*TimerReg_::TIMSK |= !((std::uint8_t) 0x01);
 		}
+
 	}	//	namespace hal
 }	//	namespace avr_base
 
