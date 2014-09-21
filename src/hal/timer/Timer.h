@@ -44,7 +44,7 @@ namespace avr_base{
 			static const std::uint8_t* TCCRA	= reinterpret_cast<std::uint8_t*>(TCCRnA_);
 			static const std::uint8_t* TCCRB	= reinterpret_cast<std::uint8_t*>(TCCRnB_);
 			static const std::uint8_t* TCCRC	= reinterpret_cast<std::uint8_t*>(TCCRnC_);
-			static const RegisterRef* TCNT		= reinterpret_cast<registerRef*>(TCNT_);		// This register have 2 bytes in timers 1 and 2
+			static const RegisterRef* TCNT		= reinterpret_cast<registerRef*>(TCNT_);		// This registers have 2 bytes in timer 1
 			static const RegisterRef* OCRA		= reinterpret_cast<registerRef*>(OCRnA_);
 			static const RegisterRef* OCRB		= reinterpret_cast<registerRef*>(OCRnB_);
 			static const RegisterRef* ICR		= reinterpret_cast<registerRef*>(ICRn_);
@@ -55,9 +55,30 @@ namespace avr_base{
 		// Define timer traits
 		typedef TimerRegisterTrait<TCCR0A, TCCR0B, 0x00, TCNT0, OCR0A, OCR0B, 0x00, TIFR0, TIMSK0, TimerRegisterSize<8>> Timer0Registers;		//	This timer havent got TCCTnC and ICR registers, are set to 0x00 but, Can it provoke errors? 666 TODO
 		typedef TimerRegisterTrait<TCCR1A, TCCR1B, TCCR1C, TCNT1, OCR1A, OCR1B, ICR1, TIFR1, TIMSK1, TimerRegisterSize<16>> Timer1Registers;
+		typedef TimerRegisterTrait<TCCR2A, TCCR2B, 0x00, TCNT2, OCR2A, OCR2B, 0x00, TIFR2, TIMSK2, TimerRegisterSize<8>> Timer2Registers;
 
 
+		// Timer class
+		template<class TimerReg_>
+		class Timer{
+		public:
+			void setPrescaler(_prescaler);
+			void setMode(_mode);
+			
+			void setCompA(_value);
+			void setCompB(_value);
 
+			void enableInterrupt(_interrupt);
+			void disableInterrupt(_interrupt);
+
+		};
+
+		// Define timers
+		typedef Timer<Timer0Registers> Timer0;
+		typedef Timer<Timer1Registers> Timer1;
+		typedef Timer<Timer2Registers> Timer2;
+
+		// Inline implementation of timer class:
 
 
 	}	//	namespace hal
