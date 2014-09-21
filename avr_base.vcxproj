@@ -22,6 +22,9 @@
   <ItemGroup>
     <ClCompile Include="src\hal\interrupt\InterruptMgr.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\stl\cstdint" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AA273108-4235-46A0-9FF7-7FDE9973A8CE}</ProjectGuid>
     <RootNamespace>Project1</RootNamespace>
