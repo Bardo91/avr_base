@@ -8,6 +8,8 @@
 
 #include "InterruptMgr.h"
 
+#include <avr/interrupt.h>
+
 namespace avr_base{
 	namespace hal{
 
