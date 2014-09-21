@@ -34,7 +34,7 @@ ifeq ($(currentOS), linux)
 	CXX_SRC := $(shell find ./src -name '*.cpp')
 endif
 ifeq ($(currentOS), windows)
-	CXX_SRC := 	src/hal/interrupt/InterruptMgr.cpp
+	CXX_SRC := 	src/hal/interrupt/InterruptMgr.cpp src/core/Time/Time.cpp
 				
 endif
 
