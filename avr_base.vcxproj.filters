@@ -22,6 +22,9 @@
     <Filter Include="Source Files\hal\gpio">
       <UniqueIdentifier>{b24484e5-7837-470c-889a-4cfc89304687}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\hal\interrupt">
+      <UniqueIdentifier>{6c271c10-c417-4f10-be7c-a8a85b44e128}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\hal\timer">
       <UniqueIdentifier>{4fe6cbff-a6ab-4917-a76e-ac873c2999c0}</UniqueIdentifier>
     </Filter>
@@ -39,11 +42,19 @@
     <ClInclude Include="src\hal\gpio\board.h">
       <Filter>Source Files\hal\gpio</Filter>
     </ClInclude>
+    <ClInclude Include="src\hal\interrupt\InterruptMgr.h">
+      <Filter>Source Files\hal\interrupt</Filter>
+    </ClInclude>
     <ClInclude Include="src\hal\micro\Interrupts.h">
       <Filter>Source Files\hal\micro</Filter>
     </ClInclude>
     <ClInclude Include="src\hal\timer\Timer.h">
       <Filter>Source Files\hal\timer</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\hal\interrupt\InterruptMgr.cpp">
+      <Filter>Source Files\hal\interrupt</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
