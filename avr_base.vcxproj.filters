@@ -22,6 +22,9 @@
     <Filter Include="Source Files\hal\gpio">
       <UniqueIdentifier>{b24484e5-7837-470c-889a-4cfc89304687}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\hal\timer">
+      <UniqueIdentifier>{4fe6cbff-a6ab-4917-a76e-ac873c2999c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\hal\micro\Registers.h">
@@ -35,6 +38,12 @@
     </ClInclude>
     <ClInclude Include="src\hal\gpio\board.h">
       <Filter>Source Files\hal\gpio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\micro\Interrupts.h">
+      <Filter>Source Files\hal\micro</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hal\timer\Timer.h">
+      <Filter>Source Files\hal\timer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

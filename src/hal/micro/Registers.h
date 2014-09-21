@@ -42,6 +42,17 @@ namespace avr_base{
 		const std::uint16_t TIMSK0	= 0x6E;	// Timer/Counter interrrupt Mask Register
 		const std::uint16_t TIFR0	= 0x35;	// Timer/Counter 0 Interrupt Flag Register.
 
+		const std::uint16_t TCCR1A	= 0x80;	// Timer/Counter 1 Control Register A.
+		const std::uint16_t TCCR1B	= 0x81;	// Timer/Counter 1 Control Register B.
+		const std::uint16_t TCCR1C	= 0x82;	// Timer/Counter 1 Control Register C.
+		const std::uint16_t TCNT1	= 0x84;	// Timer/Counter 1 Register
+		const std::uint16_t ICR1	= 0x86;	// Input capture Register 1
+		const std::uint16_t OCR1A	= 0x88;	// Output Compare Register 1 A
+		const std::uint16_t OCR1B	= 0x8A;	// Output Compare Register 1 B
+		const std::uint16_t TIMSK1	= 0x6F;	//	Timer/Counter 1 Interrupt Mask Register
+		const std::uint16_t TIFR1	= 0x36;	//	Timer/Counter 1 Interrupt flag register
+
+		
 
 		const std::uint16_t MCUCR = 0x55;
 

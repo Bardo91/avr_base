@@ -14,7 +14,9 @@
     <ClInclude Include="src\hal\gpio\GPIOPin.h" />
     <ClInclude Include="src\hal\gpio\GPIOPort.h" />
     <ClInclude Include="src\hal\gpio\board.h" />
+    <ClInclude Include="src\hal\micro\Interrupts.h" />
     <ClInclude Include="src\hal\micro\Registers.h" />
+    <ClInclude Include="src\hal\timer\Timer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AA273108-4235-46A0-9FF7-7FDE9973A8CE}</ProjectGuid>
