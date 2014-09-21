@@ -46,10 +46,10 @@ namespace avr_base{
 			static const std::uint8_t* TCCRA	= reinterpret_cast<std::uint8_t*>(TCCRnA_);
 			static const std::uint8_t* TCCRB	= reinterpret_cast<std::uint8_t*>(TCCRnB_);
 			static const std::uint8_t* TCCRC	= reinterpret_cast<std::uint8_t*>(TCCRnC_);
-			static const ExtendedReg* TCNT = reinterpret_cast<registerRef*>(TCNT_);		// This registers have 2 bytes in timer 1
-			static const ExtendedReg* OCRA = reinterpret_cast<registerRef*>(OCRnA_);
-			static const ExtendedReg* OCRB = reinterpret_cast<registerRef*>(OCRnB_);
-			static const ExtendedReg* ICR = reinterpret_cast<registerRef*>(ICRn_);
+			static const ExtendedReg* TCNT		= reinterpret_cast<registerRef*>(TCNT_);		// This registers have 2 bytes in timer 1
+			static const ExtendedReg* OCRA		= reinterpret_cast<registerRef*>(OCRnA_);
+			static const ExtendedReg* OCRB		= reinterpret_cast<registerRef*>(OCRnB_);
+			static const ExtendedReg* ICR	= reinterpret_cast<registerRef*>(ICRn_);
 			static const std::uint8_t* TIFR		= reinterpret_cast<std::uint8_t*>(TIFRn_);
 			static const std::uint8_t* TIMSK	= reinterpret_cast<std::uint8_t*>(TIMSKn_);
 		};
