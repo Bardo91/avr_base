@@ -31,6 +31,12 @@
     <Filter Include="Source Files\stl">
       <UniqueIdentifier>{ba1c3407-03d9-4ab1-949f-04d48ce98b59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{aa3bfff3-f2cb-428d-b6d2-13eb6b59feac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\time">
+      <UniqueIdentifier>{027cc874-bb86-4410-ac1f-48042146991b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\hal\micro\Registers.h">
@@ -54,10 +60,16 @@
     <ClInclude Include="src\hal\timer\Timer.h">
       <Filter>Source Files\hal\timer</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\time\Time.h">
+      <Filter>Source Files\core\time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\hal\interrupt\InterruptMgr.cpp">
       <Filter>Source Files\hal\interrupt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\time\Time.cpp">
+      <Filter>Source Files\core\time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

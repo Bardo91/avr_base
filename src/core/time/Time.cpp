@@ -16,6 +16,7 @@ namespace avr_base{
 
 	//-----------------------------------------------------------------------------------------------------------------
 	void Time::init(){
+
 		sTimer.setCompA(2000);
 		sTimer.setPrescaler(hal::ePrescalerType::e8);
 		sTimer.setMode(MODE);

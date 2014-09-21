@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\time\Time.h" />
     <ClInclude Include="src\hal\gpio\GPIOPin.h" />
     <ClInclude Include="src\hal\gpio\GPIOPort.h" />
     <ClInclude Include="src\hal\gpio\board.h" />
@@ -20,6 +21,7 @@
     <ClInclude Include="src\hal\timer\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\time\Time.cpp" />
     <ClCompile Include="src\hal\interrupt\InterruptMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
