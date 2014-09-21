@@ -83,8 +83,8 @@ namespace avr_base{
 			void setPrescaler(Prescaler_ _prescaler);
 			void setMode(Mode_ _mode);
 			
-			void setCompA(std::uint8_t _value);
-			void setCompB(std::uint8_t _value);
+			void setCompA(TimerRegisterSize::ExtendedReg _value);
+			void setCompB(TimerRegisterSize::ExtendedReg _value);
 
 			void enableInterruptCompA();
 			void enableInterruptCompB();
