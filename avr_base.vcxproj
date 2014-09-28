@@ -28,7 +28,7 @@
     <None Include="src\stl\cstdint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AA273108-4235-46A0-9FF7-7FDE9973A8CE}</ProjectGuid>
+    <ProjectGuid>{92888A7B-5C9D-4F60-BCA0-5E5FE3AFA4EB}</ProjectGuid>
     <RootNamespace>Project1</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

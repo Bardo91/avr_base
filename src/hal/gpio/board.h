@@ -17,7 +17,7 @@
 namespace avr_base{
 	namespace hal{
 
-#if defined(__ATMEGA328P__)
+#if defined(__AVR_ATMEGA328P__)
 		typedef GPIOPin<PortB, 0> pin14;
 		typedef GPIOPin<PortB, 1> pin15;
 		typedef GPIOPin<PortB, 2> pin16;
