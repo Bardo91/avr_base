@@ -156,3 +156,4 @@ $RECYCLE.BIN/
 .DS_Store
 /*.a
 /src/hal/interrupt/*.o
+/src/core/time/*.o
