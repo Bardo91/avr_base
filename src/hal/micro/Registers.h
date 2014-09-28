@@ -15,7 +15,7 @@
 namespace avr_base{
 	namespace hal {
 
-#if defined(__ATMEGA328P__)
+#if defined(__AVR_ATmega328P__)
 		
 		// Existing ports
 		#define PORTB PORTB

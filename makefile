@@ -4,7 +4,7 @@
 
 # Config
 board ?= ArduinoUno
-currentOS ?=linux
+currentOS ?=windows
 PRJ_NAME = avr_base
 
 # -- Global variables --

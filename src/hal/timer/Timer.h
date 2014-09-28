@@ -22,11 +22,13 @@ namespace avr_base{
 		class TimerRegisterSize{};
 
 		//-------------------------------------------------------------------------------------------------------------
+		template<>
 		class TimerRegisterSize<8>{
 			typedef std::uint8_t ExtendedReg;
 		};
 
 		//-------------------------------------------------------------------------------------------------------------
+		template<>
 		class TimerRegisterSize<16>{
 			typedef std::uint16_t ExtendedReg;
 		};
@@ -43,15 +45,17 @@ namespace avr_base{
 					std::uint16_t TIMSKn_,
 					class trait_>
 		class TimerRegisterTrait{
-			static const std::uint8_t* TCCRA	= reinterpret_cast<std::uint8_t*>(TCCRnA_);
-			static const std::uint8_t* TCCRB	= reinterpret_cast<std::uint8_t*>(TCCRnB_);
-			static const std::uint8_t* TCCRC	= reinterpret_cast<std::uint8_t*>(TCCRnC_);
-			static const ExtendedReg* TCNT		= reinterpret_cast<registerRef*>(TCNT_);		// This registers have 2 bytes in timer 1
-			static const ExtendedReg* OCRA		= reinterpret_cast<registerRef*>(OCRnA_);
-			static const ExtendedReg* OCRB		= reinterpret_cast<registerRef*>(OCRnB_);
-			static const ExtendedReg* ICR	= reinterpret_cast<registerRef*>(ICRn_);
-			static const std::uint8_t* TIFR		= reinterpret_cast<std::uint8_t*>(TIFRn_);
-			static const std::uint8_t* TIMSK	= reinterpret_cast<std::uint8_t*>(TIMSKn_);
+			typedef typename trait_::ExtendedReg ExtendedReg;
+
+			static constexpr std::uint8_t* TCCRA	= reinterpret_cast<std::uint8_t*>(TCCRnA_);
+			static constexpr std::uint8_t* TCCRB	= reinterpret_cast<std::uint8_t*>(TCCRnB_);
+			static constexpr std::uint8_t* TCCRC	= reinterpret_cast<std::uint8_t*>(TCCRnC_);
+			static constexpr ExtendedReg* TCNT		= reinterpret_cast<ExtendedReg*>(TCNT_);		// This registers have 2 bytes in timer 1
+			static constexpr ExtendedReg* OCRA		= reinterpret_cast<ExtendedReg*>(OCRnA_);
+			static constexpr ExtendedReg* OCRB		= reinterpret_cast<ExtendedReg*>(OCRnB_);
+			static constexpr ExtendedReg* ICR		= reinterpret_cast<ExtendedReg*>(ICRn_);
+			static constexpr std::uint8_t* TIFR		= reinterpret_cast<std::uint8_t*>(TIFRn_);
+			static constexpr std::uint8_t* TIMSK	= reinterpret_cast<std::uint8_t*>(TIMSKn_);
 		};
 
 		// Prescaler types
@@ -80,11 +84,13 @@ namespace avr_base{
 		template<class TimerReg_, class Prescaler_, class Mode_>
 		class Timer{
 		public:
+			typedef typename TimerReg_::ExtendedReg ExtendedReg;
+
 			void setPrescaler(Prescaler_ _prescaler);
 			void setMode(Mode_ _mode);
 			
-			void setCompA(TimerRegisterSize::ExtendedReg _value);
-			void setCompB(TimerRegisterSize::ExtendedReg _value);
+			void setCompA(ExtendedReg _value);
+			void setCompB(ExtendedReg _value);
 
 			void enableInterruptCompA();
 			void enableInterruptCompB();
@@ -102,61 +108,61 @@ namespace avr_base{
 
 		// Inline implementation of timer class:
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::setPrescaler(Prescaler_ _prescaler){
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::setPrescaler(Prescaler_ _prescaler){
 			*TimerReg_::TCCRB &= static_cast<std::uint8_t>(_prescaler);
 		}
 		
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::setMode(Mode_ _mode){
-			// 666 TODO: reserved to do later
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::setMode(Mode_ _mode){
+			// 666 TODO: to do later
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::setCompA(std::uint8_t _value){
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::setCompA(std::uint8_t _value){
 			*TimerReg_::OCRA = _value;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::setCompB(std::uint8_t _value){
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::setCompB(std::uint8_t _value){
 			*TimerReg_::OCRA = _value;
 		}
 		
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::enableInterruptCompA(){
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::enableInterruptCompA(){
 			*TimerReg_::TIMSK |= (std::uint8_t) 0x02;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::enableInterruptCompA(){
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::enableInterruptCompA(){
 			*TimerReg_::TIMSK |= (std::uint8_t) 0x04;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::enableInterruptCompA(){
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::enableInterruptCompA(){
 			*TimerReg_::TIMSK |= (std::uint8_t) 0x01;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::disableInterruptCompA(){
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::disableInterruptCompA(){
 			*TimerReg_::TIMSK |= !((std::uint8_t) 0x02);
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::disableInterruptCompB(){
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::disableInterruptCompB(){
 			*TimerReg_::TIMSK |= !((std::uint8_t) 0x04);
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<class TimerReg_, class Prescaler_>::disableInterruptOvf(){
+		void Timer<class TimerReg_, class Prescaler_, class Mode_>::disableInterruptOvf(){
 			*TimerReg_::TIMSK |= !((std::uint8_t) 0x01);
 		}
 
