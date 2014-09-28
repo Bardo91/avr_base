@@ -41,7 +41,7 @@ namespace avr_base{
 
 		#define _VECTOR(N) __vector_ ## N
 
-		#if defined (__ATMEGA328P__)
+		#if defined (__AVR_ATmega328P__)
 			#define RESET			_VECTOR(1)	// External pin, Power-on Reset, Brown-out reset and watchdog system reset
 			#define INT0			_VECTOR(2)	// External interrupt request 0 
 			#define INT1			_VECTOR(3)	// External interrupt request 1

@@ -11,6 +11,7 @@
 #define _AVR_BASE_HAL_INTERRUPT_INTERRUPT_MGR_H_
 
 #include <cstdint>
+#include "../micro/Interrupts.h"
 
 namespace avr_base{
 	namespace hal{

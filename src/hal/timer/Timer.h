@@ -72,8 +72,28 @@ namespace avr_base{
 
 
 		// Timer modes
-		enum class eTimerMode8 { eNormal = 0 };
-		enum class eTimerMode16 { eNormal = 0 };
+		enum class eTimerMode8 {	eNormal = 0,
+									ePwmPhaseCorrect = 1,
+									eCTC = 2,
+									eFastPwm = 3,
+									// 0x04 is reserved,
+									ePwmPhaseCorrectA = 5,
+									// 0x06 is reserved,
+									eFastPwmA = 7 };
+
+		enum class eTimerMode16 {	eNormal = 0,
+									ePwmPhaseCorrect8 = 1,
+									ePwmPhaseCorrect9 = 2,
+									ePwmPhaseCorrect10 = 3,
+									eCTCA = 4,
+									eFastPwm8 = 5,
+									eFastPwm9 = 6,
+									eFastPwm10 = 7,
+									ePwmPhaseFreqCorrectIcr = 8,
+									ePwmPhaseFreqCorrectA = 9,
+									ePwmPhaseCorrectIcr = 10,
+									ePwmPhaseCorrectA = 11,
+									eCTCIcr = 12 };
 
 		// Define timer traits
 		typedef TimerRegisterTrait<TCCR0A, TCCR0B, 0x00, TCNT0, OCR0A, OCR0B, 0x00, TIFR0, TIMSK0, TimerRegisterSize<8>> Timer0Registers;		//	This timer havent got TCCTnC and ICR registers, are set to 0x00 but, Can it provoke errors? 666 TODO
@@ -86,12 +106,14 @@ namespace avr_base{
 		class Timer{
 		public:
 			typedef typename TimerReg_::ExtendedReg ExtendedReg;
+			typedef Prescaler_ Prescaler;
+			typedef Mode_ Mode;
 
-			void setPrescaler(Prescaler_ _prescaler);
-			void setMode(Mode_ _mode);
+			void setPrescaler(Prescaler _prescaler);
+			void setMode(Mode _mode);
 			
-			void setCompA(std::uint8_t _value);
-			void setCompB(std::uint8_t _value);
+			void setCompA(ExtendedReg _value);
+			void setCompB(ExtendedReg _value);
 
 			void enableInterruptCompA();
 			void enableInterruptCompB();
@@ -109,56 +131,73 @@ namespace avr_base{
 
 		// Inline implementation of timer class:
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<TimerReg_, Prescaler_, Mode_>::setPrescaler(Prescaler_ _prescaler){
+		void Timer<TimerReg_, Prescaler_, Mode_>::setPrescaler(Prescaler _prescaler){
 			*TimerReg_::TCCRB &= static_cast<std::uint8_t>(_prescaler);
 		}
 		
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<TimerReg_, Prescaler_, Mode_>::setMode(Mode_ _mode){
-			// 666 TODO: to do later
+		void Timer<TimerReg_, Prescaler_, Mode_>::setMode(Mode _mode){
+			// Clean TCCRA & TCCRB
+			*TimerReg_::TCCRA &= 0xfc;
+			*TimerReg_::TCCRB &= 0xe7;
+			// Waveform mode is configured with 3 bits: 2 are used in TCCRA and the last one in TCCRB
+			std::uint8_t waveformMode = static_cast<std::uint8_t>(_mode);
+			// Getting both low and high part of waveform mode
+			std::uint8_t modeL = waveformMode & 0x03;
+			std::uint8_t modeH = waveformMode & 0x0c;
+			// Apply them in to registers
+			*TimerReg_::TCCRA |= modeL;
+			*TimerReg_::TCCRB |= modeH << 1;
+
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<TimerReg_, Prescaler_, Mode_>::setCompA(std::uint8_t _value){
+		void Timer<TimerReg_, Prescaler_, Mode_>::setCompA(ExtendedReg _value){
 			*TimerReg_::OCRA = _value;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
-		void Timer<TimerReg_, Prescaler_, Mode_>::setCompB(std::uint8_t _value){
+		void Timer<TimerReg_, Prescaler_, Mode_>::setCompB(ExtendedReg _value){
 			*TimerReg_::OCRA = _value;
 		}
 		
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
 		void Timer<TimerReg_, Prescaler_, Mode_>::enableInterruptCompA(){
-			*TimerReg_::TIMSK |= (std::uint8_t) 0x02;
+			*TimerReg_::TIMSK |= 1 << 1;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
 		void Timer<TimerReg_, Prescaler_, Mode_>::disableInterruptCompA(){
-			*TimerReg_::TIMSK |= (std::uint8_t) 0x04;
+			*TimerReg_::TIMSK |= ~(1 << 1);
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
 		void Timer<TimerReg_, Prescaler_, Mode_>::enableInterruptCompB(){
-			*TimerReg_::TIMSK |= (std::uint8_t) 0x01;
+			*TimerReg_::TIMSK |= 1 << 2;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
 		void Timer<TimerReg_, Prescaler_, Mode_>::disableInterruptCompB(){
-			*TimerReg_::TIMSK |= !((std::uint8_t) 0x04);
+			*TimerReg_::TIMSK |= ~(1 << 2);
+		}
+
+		//-------------------------------------------------------------------------------------------------------------
+		template<class TimerReg_, class Prescaler_, class Mode_>
+		void Timer<TimerReg_, Prescaler_, Mode_>::enableInterruptOvf(){
+			*TimerReg_::TIMSK |= ~1;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
 		template<class TimerReg_, class Prescaler_, class Mode_>
 		void Timer<TimerReg_, Prescaler_, Mode_>::disableInterruptOvf(){
-			*TimerReg_::TIMSK |= !((std::uint8_t) 0x01);
+			*TimerReg_::TIMSK |= 1;
 		}
 
 	}	//	namespace hal
