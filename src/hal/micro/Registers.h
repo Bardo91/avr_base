@@ -15,6 +15,26 @@
 namespace avr_base{
 	namespace hal {
 
+		template<typename regType_, std::uint16_t reg_>
+		class Register{
+
+		};
+
+		template<std::uint16_t reg_>
+		class Register<std::uint8_t, reg_>{
+			void operator=(std::uint8_t _val){ *static_cast<*std::uint_8t>(reg_) = _val; };
+			operator std::uint8_t() const{ *static_cast<*std::uint8_t>(reg_); };
+		};
+
+		template<std::uint16_t reg_>
+		class Register<std::uint16_t, reg_>{
+			void operator=(std::uint16_t _val){ *static_cast<*std::uint_16t>(reg_) = _val; };
+			operator std::uint16_t() const{ *static_cast<*std::uint16_t>(reg_); };
+
+			static constexpr std::uint8_t low = static_cast<*std::uint16_t>(reg_);
+			static constexpr std::uint8_t high = static_cast<*std::uint16_t + 1>(reg_);
+		};
+
 #if defined(__ATMEGA328P__)
 		
 		// Existing ports
@@ -22,44 +42,44 @@ namespace avr_base{
 		#define PORTC PORTC
 		#define PORTD PORTD
 
-		const std::uint16_t PINB	= 0x23;
-		const std::uint16_t DDRB	= 0x24;
-		const std::uint16_t PORTB	= 0x25;
+		Register<std::uint8_t, 0x23> PINB;
+		Register<std::uint8_t, 0x24> DDRB;
+		Register<std::uint8_t, 0x25> PORTB;
 				   
-		const std::uint16_t PINC	= 0x26;
-		const std::uint16_t DDRC	= 0x27;
-		const std::uint16_t PORTC	= 0x28;
+		Register<std::uint8_t, 0x26> PINC;
+		Register<std::uint8_t, 0x27> DDRC;
+		Register<std::uint8_t, 0x28> PORTC;
 				   
-		const std::uint16_t PIND	= 0x29;
-		const std::uint16_t DDRD	= 0x2A;
-		const std::uint16_t PORTD	= 0x2B;
+		Register<std::uint8_t, 0x29> PIND;
+		Register<std::uint8_t, 0x2A> DDRD;
+		Register<std::uint8_t, 0x2B> PORTD;
 		
-		const std::uint16_t TCCR0A	= 0x44;	// Timer/Counter 0 Control Register A.
-		const std::uint16_t TCCR0B	= 0x45;	// Timer/Counter 0 Control Register B.
-		const std::uint16_t TCNT0	= 0x46;	// Timer/Counter 0 Register --> Give acces for read and write operation to the Timer/Counter
-		const std::uint16_t OCR0A	= 0x47;	// Ouput Compare Register A --> Value that is compared with the counter TCNT0. Match can be use to generate an OutputCompare interrupt o waveform gen on OC0A.
-		const std::uint16_t OCR0B	= 0x48;	// Ouput Compare Register B --> Idem than A but with B.
-		const std::uint16_t TIMSK0	= 0x6E;	// Timer/Counter interrrupt Mask Register
-		const std::uint16_t TIFR0	= 0x35;	// Timer/Counter 0 Interrupt Flag Register.
+		Register<std::uint8_t, 0x44> TCCR0A;	// Timer/Counter 0 Control Register A.
+		Register<std::uint8_t, 0x45> TCCR0B;	// Timer/Counter 0 Control Register B.
+		Register<std::uint8_t, 0x46> TCNT0;	// Timer/Counter 0 Register --> Give acces for read and write operation to the Timer/Counter
+		Register<std::uint8_t, 0x47> OCR0A;	// Ouput Compare Register A --> Value that is compared with the counter TCNT0. Match can be use to generate an OutputCompare interrupt o waveform gen on OC0A.
+		Register<std::uint8_t, 0x48> OCR0B;	// Ouput Compare Register B --> Idem than A but with B.
+		Register<std::uint8_t, 0x6E> TIMSK0;	// Timer/Counter interrrupt Mask Register
+		Register<std::uint8_t, 0x35> TIFR0;	// Timer/Counter 0 Interrupt Flag Register.
 
-		const std::uint16_t TCCR1A	= 0x80;	// Timer/Counter 1 Control Register A.
-		const std::uint16_t TCCR1B	= 0x81;	// Timer/Counter 1 Control Register B.
-		const std::uint16_t TCCR1C	= 0x82;	// Timer/Counter 1 Control Register C.
-		const std::uint16_t TCNT1	= 0x84;	// Timer/Counter 1 Register
-		const std::uint16_t ICR1	= 0x86;	// Input capture Register 1
-		const std::uint16_t OCR1A	= 0x88;	// Output Compare Register 1 A
-		const std::uint16_t OCR1B	= 0x8A;	// Output Compare Register 1 B
-		const std::uint16_t TIMSK1	= 0x6F;	//	Timer/Counter 1 Interrupt Mask Register
-		const std::uint16_t TIFR1	= 0x36;	//	Timer/Counter 1 Interrupt flag register
+		Register<std::uint8_t, 0x80> TCCR1A;	// Timer/Counter 1 Control Register A.
+		Register<std::uint8_t, 0x81> TCCR1B;	// Timer/Counter 1 Control Register B.
+		Register<std::uint8_t, 0x82> TCCR1C;	// Timer/Counter 1 Control Register C.
+		Register<std::uint16_t, 0x84> TCNT1;	// Timer/Counter 1 Register
+		Register<std::uint16_t, 0x86> ICR1;	// Input capture Register 1
+		Register<std::uint16_t, 0x88> OCR1A;	// Output Compare Register 1 A
+		Register<std::uint16_t, 0x8A> OCR1B;	// Output Compare Register 1 B
+		Register<std::uint8_t, 0x6F> TIMSK1;	//	Timer/Counter 1 Interrupt Mask Register
+		Register<std::uint8_t, 0x36> TIFR1;	//	Timer/Counter 1 Interrupt flag register
 
-		const std::uint16_t TCCR2A	= 0xB0;	// Timer/Counter 2 Control Register A.
-		const std::uint16_t TCCR2B	= 0xB1;	// Timer/Counter 2 Control Register B.
-		const std::uint16_t TCNT2	= 0xB2;	// Timer/Counter 2 Register
-		const std::uint16_t OCR2A	= 0xB3;	// Output Compare Register 2 A
-		const std::uint16_t OCR2B	= 0xB4;	// Output Compare Register 2 B
-		const std::uint16_t TIMSK2	= 0x70;	//	Timer/Counter 2 Interrupt Mask Register
-		const std::uint16_t TIFR2	= 0x37;	//	Timer/Counter 2 Interrupt flag register
-		const std::uint16_t ASSR	= 0xB6;	//	Asynchronous Status Register
+		Register<std::uint8_t, 0xB0> TCCR2A;	// Timer/Counter 2 Control Register A.
+		Register<std::uint8_t, 0xB1> TCCR2B;	// Timer/Counter 2 Control Register B.
+		Register<std::uint8_t, 0xB2> TCNT2;	// Timer/Counter 2 Register
+		Register<std::uint8_t, 0xB3> OCR2A;	// Output Compare Register 2 A
+		Register<std::uint8_t, 0xB4> OCR2B;	// Output Compare Register 2 B
+		Register<std::uint8_t, 0x70> TIMSK2;	//	Timer/Counter 2 Interrupt Mask Register
+		Register<std::uint8_t, 0x37> TIFR2;	//	Timer/Counter 2 Interrupt flag register
+		Register<std::uint8_t, 0xB6> ASSR;	//	Asynchronous Status Register
 
 		
 
