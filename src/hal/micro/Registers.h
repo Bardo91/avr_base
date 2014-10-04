@@ -16,26 +16,29 @@ namespace avr_base{
 	namespace hal {
 
 		template<typename regType_, std::uint16_t reg_>
-		struct Register{
+		struct RegisterBase{
+			void operator=(regType_ _val){ *static_cast<regType_ *>(reg_) = _val; };
+			operator regType_() const{ return *static_cast<regType_*>(reg_); };
 
+		protected:
+			RegisterBase() = default;
 		};
 
+		template<typename regType_, std::uint16_t reg_>
+		struct Register: RegisterBase<regType_, reg_>{
+			static_assert(false, "Using register Type not supported");
+		};
+		
 		template<std::uint16_t reg_>
-		struct Register<std::uint8_t, reg_>{
-			void operator=(std::uint8_t _val){ *static_cast<std::uint8_t*>(reg_) = _val; };
-			operator std::uint8_t() const{ return *static_cast<std::uint8_t*>(reg_); };
-		};
+		struct Register<std::uint8_t, reg_>{	};
 
 		template<std::uint16_t reg_>
 		struct Register<std::uint16_t, reg_>{
-			void operator=(std::uint16_t _val){ *static_cast<std::uint16_t*>(reg_) = _val; };
-			operator std::uint16_t() const{ return *static_cast<std::uint16_t*>(reg_); };
-
 			static constexpr std::uint8_t low = *static_cast<std::uint16_t*>(reg_);
 			static constexpr std::uint8_t high = *(static_cast<std::uint16_t*>(reg_) + 1);
 		};
 
-#if defined(__ATMEGA328P__)
+	#if defined(__ATMEGA328P__)
 		
 		// Existing ports
 		#define PORTB PORTB
@@ -81,11 +84,9 @@ namespace avr_base{
 		Register<std::uint8_t, 0x37> TIFR2;	//	Timer/Counter 2 Interrupt flag register
 		Register<std::uint8_t, 0xB6> ASSR;	//	Asynchronous Status Register
 
-		
+		Register<std::uint16_t, 0x55> MCUCR;
 
-		const std::uint16_t MCUCR = 0x55;
-
-#endif
+	#endif
 
 	}	//	namespace hal
 }	//	namespace avr_base
