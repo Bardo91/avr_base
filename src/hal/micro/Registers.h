@@ -17,25 +17,23 @@ namespace avr_base{
 
 		template<typename regType_, std::uint16_t reg_>
 		struct RegisterBase{
-			void operator=(regType_ _val){ *static_cast<regType_ *>(reg_) = _val; };
-			operator regType_() const{ return *static_cast<regType_*>(reg_); };
+			void operator=(regType_ _val){ *reinterpret_cast<regType_ *>(reg_) = _val; };
+			operator regType_() const{ return *reinterpret_cast<regType_*>(reg_); };
 
 		protected:
 			RegisterBase() = default;
 		};
 
 		template<typename regType_, std::uint16_t reg_>
-		struct Register: RegisterBase<regType_, reg_>{
-			static_assert(false, "Using register Type not supported");
-		};
+		struct Register;
 		
 		template<std::uint16_t reg_>
-		struct Register<std::uint8_t, reg_>{	};
+		struct Register<std::uint8_t, reg_>: public RegisterBase<std::uint8_t, reg_>{};
 
 		template<std::uint16_t reg_>
-		struct Register<std::uint16_t, reg_>{
-			static constexpr std::uint8_t low = *static_cast<std::uint16_t*>(reg_);
-			static constexpr std::uint8_t high = *(static_cast<std::uint16_t*>(reg_) + 1);
+		struct Register<std::uint16_t, reg_>: public RegisterBase<std::uint16_t, reg_>{
+			typedef Register<std::uint8_t, reg_> low;
+			typedef Register<std::uint8_t, reg_ + 1> high;
 		};
 
 	#if defined(__ATMEGA328P__)
